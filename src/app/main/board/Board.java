@@ -2,31 +2,31 @@ package app.main.board;
 
 public class Board{
 
-    private String Name;
-    private char[][] Map;
-    private boolean[][] Strikes;
+    private String name;
+    private char[][] map;
+    private boolean[][] strikes;
 
 
-    public Board(String Name, int sizeMap){
-        this.Name = Name;
-        Map = new char[sizeMap][sizeMap];
-        Strikes = new boolean[sizeMap][sizeMap];
+    public Board(String name, int sizeMap){
+        this.name = name;
+        map = new char[sizeMap][sizeMap];
+        strikes = new boolean[sizeMap][sizeMap];
         for (int i=0; i<sizeMap; i++){
             for (int j=0; j<sizeMap; j++){
-                Map[i][j] = '~';
-                Strikes[i][j] = false;
+                map[i][j] = '~';
+                strikes[i][j] = false;
             }
         }
     }
 
-    public Board(String Name ){
-        this.Name = Name;
-        Map = new char[10][10];
-        Strikes = new boolean[10][10];
+    public Board(String name ){
+        this.name = name;
+        map = new char[10][10];
+        strikes = new boolean[10][10];
         for (int i=0; i<10; i++){
             for (int j=0; j<10; j++){
-                Map[i][j] = '~';
-                Strikes[i][j] = false;
+                map[i][j] = '~';
+                strikes[i][j] = false;
             }
         }
     }
@@ -36,18 +36,18 @@ public class Board{
         String delimiter = "  |  ";
 
         System.out.print("Ships ");
-        for (int k=0; k<(2*Map.length-1 + 2); k++ ){
+        for (int k=0; k<(2*map.length-1 + 2); k++ ){
             System.out.print("-");
         }
         System.out.print(" Strikes ");
-        for (int k=0; k<(2*Map.length-1 -2); k++ ){
+        for (int k=0; k<(2*map.length-1 -2); k++ ){
             System.out.print("-");
         }
         System.out.print("\n");
 
         char letter = 65;
         System.out.print("|   ");
-        for (int j=0; j<Map.length; j++){ 
+        for (int j=0; j<map.length; j++){ 
             System.out.print( " "+letter);
             letter += 1;
         }
@@ -55,22 +55,22 @@ public class Board{
         System.out.print(delimiter);
         System.out.print("  ");
         letter = 65;
-        for (int j=0; j<Strikes.length; j++){ 
+        for (int j=0; j<strikes.length; j++){ 
             System.out.print( " "+letter);
             letter += 1;
         }
         System.out.print(" |\n");
 
 
-        for (int i=0; i<Map.length; i++){
+        for (int i=0; i<map.length; i++){
             System.out.print("| ");
             System.out.print(i);
             if (Integer.toString(i).length()==1){
                 System.out.print(" ");
             }
 
-            for (int j=0; j<Map.length; j++){
-                System.out.print(" "+Map[i][j]);
+            for (int j=0; j<map.length; j++){
+                System.out.print(" "+map[i][j]);
             }
             System.out.print(delimiter);
 
@@ -78,8 +78,8 @@ public class Board{
             if (Integer.toString(i).length()==1){
                 System.out.print(" ");
             }
-            for (int j=0; j<Strikes.length; j++){
-                if(Strikes[i][j])
+            for (int j=0; j<strikes.length; j++){
+                if(strikes[i][j])
                     System.out.print(" "+"X");
                 else   
                     System.out.print(" "+"~");
@@ -88,34 +88,34 @@ public class Board{
 
             System.out.print(" |\n");
         }
-        for (int j=0; j<2*2*Map.length-1 + 9 + delimiter.length(); j++ )
+        for (int j=0; j<2*2*map.length-1 + 9 + delimiter.length(); j++ )
             System.out.print("-");
 
         System.out.print("\n");
     }
 
-    public void setName(String Name){
-        this.Name = Name;
+    public void setName(String name){
+        this.name = name;
     }
 
     public void setMapIJ(int i, int j, char val){
-        Map[i][j] = val;
+        map[i][j] = val;
     }
 
     public void setStrikesIJ(int i, int j, boolean val){
-        Strikes[i][j] = val;
+        strikes[i][j] = val;
     }
 
     public String getName(){
-        return Name;
+        return name;
     }
 
     public char getMapIJ(int i, int j){
-        return Map[i][j];
+        return map[i][j];
     }
 
     public boolean getStrikesIJ(int i, int j){
-        return Strikes[i][j];
+        return strikes[i][j];
     }
 
 }
