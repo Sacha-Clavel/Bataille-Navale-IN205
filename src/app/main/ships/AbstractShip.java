@@ -1,12 +1,19 @@
 package app.main.ships;
 
 
-public class AbstractShip{
+public abstract class AbstractShip{
     
     protected char label;
     protected String type;
     protected int size;
     protected Orientations orientation;
+
+    public AbstractShip(char label, String type, int size, Orientations orientation){
+        this.label = label;
+        this.type = type;
+        this.size = size;
+        this.orientation = orientation;
+    }
 
     public char getLabel(){
         return label;
@@ -28,11 +35,6 @@ public class AbstractShip{
         this.orientation = orientation;
     }
 
-    public AbstractShip(char label, String type, int size, Orientations orientation){
-        this.label = label;
-        this.type = type;
-        this.size = size;
-        this.orientation = orientation;
-    }
+
 
 }

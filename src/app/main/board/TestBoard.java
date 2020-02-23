@@ -1,36 +1,57 @@
 package app.main.board;
 
+import app.main.ships.*;
+
+
 public class TestBoard {
 
 
-public static void main( String[] args )
-{
+    public static void main( String[] args ){
     
-    Board firstBoard = new Board("aBoard",15);
-    firstBoard.print();
+        Board FirstBoard = new Board("aBoard",15);
 
-    Board secondBoard = new Board("anotherBoard");
-    secondBoard.print();
-
-    System.out.println(firstBoard.getName());
-    
-    firstBoard.setMapIJ(3,5,'O');
-    firstBoard.setMapIJ(3,6,'O');
-    firstBoard.setMapIJ(3,7,'O');
-
-
-    firstBoard.setMapIJ(2,10,'O');
-    firstBoard.setMapIJ(3,10,'O');
-    firstBoard.setMapIJ(4,10,'O');
-    firstBoard.setMapIJ(5,10,'O');
-
-    firstBoard.print();
+        FirstBoard . setHit(true, 10, 1);
+        FirstBoard . setHit(true, 10, 2);
+        FirstBoard . setHit(false, 10, 3);
+        FirstBoard . setHit(true, 10, 4);
 
 
 
 
+        Battleship FirstShip = new Battleship(Orientations.NORTH);
+        Carrier SecondShip = new Carrier();
+        Submarine thirdShip = new Submarine(Orientations.SOUTH);
 
-    
-}
+        try {
+            FirstBoard.putShip(FirstShip, 4, 7);
+        } catch(Exception e){
+            System.out.println(e);
+        }
+
+        FirstBoard.print();
+
+
+        try {
+            FirstBoard.putShip(SecondShip, 10, 7);
+        } catch(Exception e){
+            System.out.println(e);
+        }
+
+        FirstBoard.print();
+
+
+        try {
+            FirstBoard.putShip(thirdShip, 9, 8);
+        } catch(Exception e){
+            System.out.println(e);
+        }
+
+        FirstBoard.print();
+
+        System.out.println("The cell (10,J) has a ship ? : " + FirstBoard.hasShip(10, 9));
+        System.out.println("The cell (11,J) has a ship ? : " + FirstBoard.hasShip(11, 9));
+
+
+    }
 
 }
