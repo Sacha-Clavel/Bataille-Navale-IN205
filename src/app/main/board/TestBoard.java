@@ -40,8 +40,22 @@ public class TestBoard {
         FirstBoard.print();
 
 
+
         try {
-            FirstBoard.putShip(thirdShip, 9, 8);
+            FirstBoard.putShip(thirdShip, 10, 3); 
+        } catch(Exception e){
+            System.out.println(e);
+        }
+
+        try {
+            FirstBoard.putShip(thirdShip, 9, 8); // Exception is raised (Overlapsing)
+        } catch(Exception e){
+            System.out.println(e);
+        }
+
+
+        try {
+            FirstBoard.putShip(thirdShip, 13, 1); // Exception is raised (Out of the map)
         } catch(Exception e){
             System.out.println(e);
         }

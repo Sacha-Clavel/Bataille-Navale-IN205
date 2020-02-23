@@ -1,3 +1,5 @@
+package app.main.ships;
+
 import java.util.NoSuchElementException;
 
 public enum Hit {

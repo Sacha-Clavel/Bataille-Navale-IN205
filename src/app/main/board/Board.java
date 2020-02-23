@@ -4,10 +4,17 @@ import app.main.ships.*;
 
 public class Board implements IBoard{
 
+    /***************
+        Attributs  
+    ****************/
     private String name;
     private char[][] map;
     private boolean[][] strikes;
 
+
+    /*******************
+        Constructeurs  
+    ********************/
 
     public Board(String name, int sizeMap){
         this.name = name;
@@ -35,8 +42,11 @@ public class Board implements IBoard{
         }
     }
 
+    /***************
+        Méthodes  
+    ****************/
 
-
+    // ----------- Affichage de la carte ----------------
     public void print(){
 
         String delimiter = "  |  ";
@@ -110,6 +120,8 @@ public class Board implements IBoard{
 
 
 
+    // ----------- Setters ----------------
+
     public void setName(String name){
         this.name = name;
     }
@@ -127,6 +139,7 @@ public class Board implements IBoard{
     }
 
 
+    // ----------- Getters ----------------
 
     public String getName(){
         return name;
@@ -150,8 +163,8 @@ public class Board implements IBoard{
         return map.length;
     }
 
-
-
+    // ----------- Ajout des navires et des frappes ----------------
+    
     public void putShip(AbstractShip ship, int y, int x) throws Exception {
 
         int jx;

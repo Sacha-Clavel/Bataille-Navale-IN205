@@ -1,3 +1,8 @@
+package app.main.player;
+
+import app.main.ships.*;
+import app.main.board.*;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -30,17 +35,41 @@ public class Player {
     public void putShips() {
         boolean done = false;
         int i = 0;
+        boolean placementIsSuccessful = false;
 
         do {
             AbstractShip s = ships[i];
-            String msg = String.format("placer %d : %s(%d)", i + 1, s.getName(), s.getLength());
+            String msg = String.format("placer %d : %s(%d)", i + 1, s.getType(), s.getSize());
             System.out.println(msg);
             InputHelper.ShipInput res = InputHelper.readShipInput();
-            // TODO set ship orientation
-            // TODO put ship at given position
+            
+            Orientations orientation;
+            if (res.orientation == "n"){
+                orientation = Orientations.NORTH;
+            }
+            else if (res.orientation == "w"){
+                orientation = Orientations.WEST;
 
-            // TODO when ship placement successful
-            ++i;
+            }
+            else if (res.orientation == "s"){
+                orientation = Orientations.SOUTH;
+
+            }
+            else {
+                orientation = Orientations.EAST;
+            }
+
+            s.setOrientation(orientation);
+
+            try{
+                board.putShip(s, res.y, res.x);
+                ships[i] = s;
+                ++i;
+
+            } catch(Exception e){
+                System.out.println(e);
+            }
+
             done = i == 5;
 
             board.print();
@@ -48,9 +77,8 @@ public class Player {
     }
 
     public Hit sendHit(int[] coords) {
-        boolean done;
+        boolean done=false;
         Hit hit = null;
-
         do {
             System.out.println("où frapper?");
             InputHelper.CoordInput hitInput = InputHelper.readCoordInput();
