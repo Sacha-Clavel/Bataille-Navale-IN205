@@ -43,26 +43,29 @@ public class Player {
             System.out.println(msg);
             InputHelper.ShipInput res = InputHelper.readShipInput();
             
-            Orientations orientation;
-            if (res.orientation == "n"){
-                orientation = Orientations.NORTH;
+            Orientations orientationShip;
+            switch (res.orientation){
+                case "n":
+                    orientationShip = Orientations.NORTH;
+                    break;
+                case "w":
+                    orientationShip = Orientations.WEST;
+                    break;
+                case "s":
+                    orientationShip = Orientations.SOUTH;
+                    break;
+                case "e":
+                    orientationShip = Orientations.EAST;
+                    break;
+                default :
+                    orientationShip = Orientations.EAST;
+                    break;
             }
-            else if (res.orientation == "w"){
-                orientation = Orientations.WEST;
 
-            }
-            else if (res.orientation == "s"){
-                orientation = Orientations.SOUTH;
-
-            }
-            else {
-                orientation = Orientations.EAST;
-            }
-
-            s.setOrientation(orientation);
+            s.setOrientation(orientationShip);
 
             try{
-                board.putShip(s, res.y, res.x);
+                board.putShip(s, res.y+1, res.x); //"+1" car ma convention est de faire commencer les indices à 0. 
                 ships[i] = s;
                 ++i;
 
