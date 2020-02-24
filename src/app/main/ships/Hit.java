@@ -43,14 +43,14 @@ public enum Hit {
     public void print(){
         switch(this){
             case MISS :
-                System.out.println("missed ...");
+                System.out.println("Missed ...");
                 break;
             case STRIKE :
                 System.out.println("Hit !");
                 break;
 
             default :
-                System.out.println(this.label + " is Sunk !");
+                System.out.println(this.label + " is sunk !");
                 break;
 
         }

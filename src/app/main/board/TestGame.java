@@ -36,10 +36,14 @@ public class TestGame {
 
         while (countShipDestroyed < shipsPlayer.size()){
             Hit hitResult = ai.sendHit(coords);
-            hitResult.print();
+            if (hitResult != Hit.MISS && hitResult != Hit.STRIKE){
+                countShipDestroyed ++;
+            }
             board.print();
-            sleep(1000);
+            hitResult.print();
+            System.out.println(countShipDestroyed+"/"+shipsPlayer.size() + " of ships are destroyed");
 
+            sleep(1000);
         }
     }
 
