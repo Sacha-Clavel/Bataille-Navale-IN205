@@ -11,6 +11,7 @@ public abstract class AbstractShip{
     protected String type;
     protected int size;
     protected Orientations orientation;
+    protected int strikeCount;
 
 
     /******************
@@ -55,6 +56,23 @@ public abstract class AbstractShip{
         this.orientation = orientation;
     }
 
+
+
+    public void setLabel(char label){
+        this.label = label;
+    }
+
+
+    // -------------- Autres méthodes ---------------
+
+    public void addStrike(){
+        strikeCount ++;
+    }
+
+
+    public boolean isSunk(){
+        return size == strikeCount;
+    } 
 
 
 }

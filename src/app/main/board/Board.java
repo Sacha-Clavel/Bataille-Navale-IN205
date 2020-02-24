@@ -1,5 +1,6 @@
 package app.main.board;
 
+import app.main.annexes.ColorUtil;
 import app.main.ships.*;
 
 public class Board implements IBoard{
@@ -8,8 +9,8 @@ public class Board implements IBoard{
         Attributs  
     ****************/
     private String name;
-    private char[][] map;
-    private boolean[][] strikes;
+    private ShipState[][] map;
+    private Boolean[][] strikes;
 
 
     /*******************
@@ -18,28 +19,30 @@ public class Board implements IBoard{
 
     public Board(String name, int sizeMap){
         this.name = name;
-        map = new char[sizeMap][sizeMap];
-        strikes = new boolean[sizeMap][sizeMap];
+        map = new ShipState[sizeMap][sizeMap];
         for (int i=0; i<sizeMap; i++){
-            for (int j=0; j<sizeMap; j++){
-                map[i][j] = '~';
-                strikes[i][j] = false;
+            for(int j=0; j<sizeMap; j++){
+                map[i][j] = new ShipState();
             }
         }
+
+        strikes = new Boolean[sizeMap][sizeMap];
+
     }
 
 
 
     public Board(String name ){
+        int defaultSize = 10;
         this.name = name;
-        map = new char[10][10];
-        strikes = new boolean[10][10];
-        for (int i=0; i<10; i++){
-            for (int j=0; j<10; j++){
-                map[i][j] = '~';
-                strikes[i][j] = false;
+        map = new ShipState[defaultSize][defaultSize];
+        for (int i=0; i<defaultSize; i++){
+            for(int j=0; j<defaultSize; j++){
+                map[i][j] = new ShipState();
             }
         }
+
+        strikes = new Boolean[defaultSize][defaultSize];
     }
 
     /***************
@@ -93,7 +96,14 @@ public class Board implements IBoard{
             }
 
             for (int j=0; j<map.length; j++){
-                System.out.print(" "+map[i][j]);
+                if (map[i][j].getShip() == null){
+                    System.out.print(ColorUtil.colorize(" ~", "cyan"));
+                }
+                else {
+                    System.out.print(" ");
+                    System.out.print(map[i][j].toString());
+                }
+                
             }
             System.out.print(delimiter);
 
@@ -102,10 +112,13 @@ public class Board implements IBoard{
                 System.out.print(" ");
             }
             for (int j=0; j<strikes.length; j++){
-                if(strikes[i][j])
-                    System.out.print(" "+"X");
-                else   
-                    System.out.print(" "+"~");
+                if(strikes[i][j]==null)
+                    System.out.print(ColorUtil.colorize(" ~", "cyan"));
+                else if (strikes[i][j])  
+                    System.out.print(ColorUtil.colorize(" "+"X","red"));
+                else {
+                    System.out.print(ColorUtil.colorize(" "+"X","white"));
+                }
                 
             }
 
@@ -127,18 +140,6 @@ public class Board implements IBoard{
     }
 
 
-
-    public void setMapIJ(int i, int j, char val){
-        map[i][j] = val;
-    }
-
-
-
-    public void setStrikesIJ(int i, int j, boolean val){
-        strikes[i][j] = val;
-    }
-
-
     // ----------- Getters ----------------
 
     public String getName(){
@@ -146,14 +147,13 @@ public class Board implements IBoard{
     }
 
 
-
-    public char getMapIJ(int i, int j){
+    public ShipState getMapIJ(int i, int j){
         return map[i][j];
     }
 
 
 
-    public boolean getStrikesIJ(int i, int j){
+    public Boolean getStrikesIJ(int i, int j){
         return strikes[i][j];
     }
 
@@ -164,7 +164,7 @@ public class Board implements IBoard{
     }
 
     // ----------- Ajout des navires et des frappes ----------------
-    
+
     public void putShip(AbstractShip ship, int y, int x) throws Exception {
 
         int jx;
@@ -178,12 +178,12 @@ public class Board implements IBoard{
                 
                 jx = x;
                 for (iy = y; iy > y - ship.getSize(); iy--){
-                    if (map[iy][jx] != '~'){
+                    if (map[iy][jx].getShip() != null){
                         throw new Exception("The ship overlaps another ship");
                     }
                 }
                 for (iy = y; iy > y - ship.getSize(); iy--){
-                    map[iy][jx] = '#';
+                    map[iy][jx].setShip(ship);
                 }
                 break;
 
@@ -193,12 +193,12 @@ public class Board implements IBoard{
                 }
                 iy = y;
                 for (jx = x; jx > x - ship.getSize(); jx--){
-                    if (map[iy][jx] != '~'){
+                    if (map[iy][jx].getShip() != null){
                         throw new Exception("The ship overlaps another ship");
                     }
                 }
                 for (jx = x; jx > x - ship.getSize(); jx--){
-                    map[iy][jx] = '#';
+                    map[iy][jx].setShip(ship);
                 }
                 break;
 
@@ -208,12 +208,12 @@ public class Board implements IBoard{
                 }
                 jx = x;
                 for (iy = y; iy < y + ship.getSize(); iy++){
-                    if (map[iy][jx] != '~'){
+                    if (map[iy][jx].getShip() != null){
                         throw new Exception("The ship overlaps another ship");
                     }
                 }
                 for (iy = y; iy < y + ship.getSize(); iy++){
-                    map[iy][jx] = '#';
+                    map[iy][jx].setShip(ship);
                 }
                 break;
 
@@ -224,12 +224,12 @@ public class Board implements IBoard{
 
                 iy = y;
                 for (jx = x; jx < x + ship.getSize(); jx++){
-                    if (map[iy][jx] != '~'){
+                    if (map[iy][jx].getShip() != null){
                         throw new Exception("The ship overlaps another ship");
                     }
                 }
                 for (jx = x; jx < x + ship.getSize(); jx++){
-                    map[iy][jx] = '#';
+                    map[iy][jx].setShip(ship);
                 }
                 break;
         }
@@ -240,7 +240,7 @@ public class Board implements IBoard{
     public boolean hasShip(int y, int x){
         int iy = y;
         int jx = x; 
-        if (map[iy][jx] == '#'){
+        if (map[iy][jx].getShip() != null){
             return true;
         }
         else {
@@ -263,9 +263,6 @@ public class Board implements IBoard{
         int jx = x; 
         return strikes[iy][jx];
     }
-
-
-
 
 
 }
