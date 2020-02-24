@@ -60,10 +60,24 @@ public class TestBoard {
             System.out.println(e);
         }
 
+
+
+
+        FirstBoard.sendHit(10,7);
+        FirstBoard.sendHit(10,9);
+        FirstBoard.sendHit(10,3);
+        FirstBoard.sendHit(11,3);
+        Hit test = FirstBoard.sendHit(12,3);
+
         FirstBoard.print();
 
-        System.out.println("The cell (10,J) has a ship ? : " + FirstBoard.hasShip(10, 9));
-        System.out.println("The cell (11,J) has a ship ? : " + FirstBoard.hasShip(11, 9));
+        System.out.println("The Submarine is sunk : " + thirdShip.isSunk());
+        System.out.println("The last call to sendHit returned : " + test);
+
+
+
+
+
 
 
     }

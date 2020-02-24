@@ -45,9 +45,9 @@ public class ShipState{
 
     public void addStrike() throws Exception {
         if (struck){
-            throw new Exception("A cell can't be hit more than once");
+            throw new Exception("This cell has already been hit");
         }
-        struck |= true;
+        struck = true;
     }
 
 

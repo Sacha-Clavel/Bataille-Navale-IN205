@@ -35,7 +35,6 @@ public class Player {
     public void putShips() {
         boolean done = false;
         int i = 0;
-        boolean placementIsSuccessful = false;
 
         do {
             AbstractShip s = ships[i];
@@ -80,16 +79,27 @@ public class Player {
     }
 
     public Hit sendHit(int[] coords) {
-        boolean done=false;
+        //boolean done=false;
         Hit hit = null;
-        do {
+        //do {
             System.out.println("où frapper?");
             InputHelper.CoordInput hitInput = InputHelper.readCoordInput();
-            // TODO call sendHit on this.opponentBoard
+            Hit resultOfHit = opponentBoard.sendHit(hitInput.y+1, hitInput.x);
+            switch (resultOfHit){
+                case MISS :
+                    board.setHit(false, hitInput.y+1, hitInput.x); //"+1" car ma convention est de faire commencer les indices à 0. 
+                    break;
 
+                default :
+                    board.setHit(true, hitInput.y+1, hitInput.x); //"+1" car ma convention est de faire commencer les indices à 0. 
+                    break;
+            }
             // TODO : Game expects sendHit to return BOTH hit result & hit coords.
             // return hit is obvious. But how to return coords at the same time ?
-        } while (!done);
+            coords = new int[2];
+            coords[0] = hitInput.y;
+            coords[1] = hitInput.x;
+        //} while (!done);
 
         return hit;
     }

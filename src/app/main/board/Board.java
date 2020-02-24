@@ -241,7 +241,12 @@ public class Board implements IBoard{
         int iy = y;
         int jx = x; 
         if (map[iy][jx].getShip() != null){
-            return true;
+            if (map[iy][jx].getShip().isSunk()){
+                return false;
+            }
+            else {
+                return true;
+            }
         }
         else {
             return false;
@@ -265,4 +270,32 @@ public class Board implements IBoard{
     }
 
 
+
+    public Hit sendHit(int y, int x){
+        int iy = y;
+        int jx = x;
+
+        try {
+            map[iy][jx].addStrike();
+            if (map[iy][jx].getShip() == null){
+                return Hit.MISS;
+            }
+            else {
+                map[iy][jx].getShip().addStrike();
+                if (map[iy][jx].getShip().isSunk()){
+                    System.out.println(map[iy][jx].getShip().getType() + " is sunk.");
+                    return Hit.fromInt(map[iy][jx].getShip().getSize());
+                    }
+                else {
+                    return Hit.STRIKE;
+                }
+            }   
+        } catch (Exception e){
+            System.out.println(e);
+            return Hit.STRIKE;
+        }
+
+
+
+    }
 }
