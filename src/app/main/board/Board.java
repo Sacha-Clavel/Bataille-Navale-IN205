@@ -158,13 +158,14 @@ public class Board implements IBoard{
     }
 
 
-
+    @Override
     public int getSize(){
         return map.length;
     }
 
     // ----------- Ajout des navires et des frappes ----------------
 
+    @Override
     public void putShip(AbstractShip ship, int y, int x) throws Exception {
 
         int jx;
@@ -236,7 +237,7 @@ public class Board implements IBoard{
     }
 
 
-
+    @Override
     public boolean hasShip(int y, int x){
         int iy = y;
         int jx = x; 
@@ -254,7 +255,7 @@ public class Board implements IBoard{
     }
 
 
-
+    @Override
     public void setHit(boolean hit, int y, int x){
         int iy = y;
         int jx = x; 
@@ -262,7 +263,7 @@ public class Board implements IBoard{
     }
 
 
-    
+    @Override
     public Boolean getHit(int y, int x){
         int iy = y;
         int jx = x; 
@@ -270,7 +271,7 @@ public class Board implements IBoard{
     }
 
 
-
+    @Override
     public Hit sendHit(int y, int x){
         int iy = y;
         int jx = x;
@@ -283,7 +284,6 @@ public class Board implements IBoard{
             else {
                 map[iy][jx].getShip().addStrike();
                 if (map[iy][jx].getShip().isSunk()){
-                    System.out.println(map[iy][jx].getShip().getType() + " is sunk.");
                     return Hit.fromInt(map[iy][jx].getShip().getSize());
                     }
                 else {
@@ -292,7 +292,12 @@ public class Board implements IBoard{
             }   
         } catch (Exception e){
             System.out.println(e);
-            return Hit.STRIKE;
+            if (map[iy][jx].getShip() == null){
+                return Hit.MISS;
+            }
+            else {
+                return Hit.STRIKE;
+            }
         }
 
 

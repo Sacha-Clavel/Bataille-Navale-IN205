@@ -70,7 +70,7 @@ public class TestBoard {
         Hit test = FirstBoard.sendHit(12,3);
 
         FirstBoard.print();
-
+        test.print();
         System.out.println("The Submarine is sunk : " + thirdShip.isSunk());
         System.out.println("The last call to sendHit returned : " + test);
 

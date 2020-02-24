@@ -35,8 +35,10 @@ public class Player {
     public void putShips() {
         boolean done = false;
         int i = 0;
+        board.print();
 
         do {
+
             AbstractShip s = ships[i];
             String msg = String.format("placer %d : %s(%d)", i + 1, s.getType(), s.getSize());
             System.out.println(msg);
@@ -67,6 +69,8 @@ public class Player {
                 board.putShip(s, res.y+1, res.x); //"+1" car ma convention est de faire commencer les indices à 0. 
                 ships[i] = s;
                 ++i;
+                board.print();
+
 
             } catch(Exception e){
                 System.out.println(e);
@@ -74,13 +78,12 @@ public class Player {
 
             done = i == 5;
 
-            board.print();
         } while (!done);
     }
 
     public Hit sendHit(int[] coords) {
         //boolean done=false;
-        Hit hit = null;
+        //Hit hit = null;
         //do {
             System.out.println("où frapper?");
             InputHelper.CoordInput hitInput = InputHelper.readCoordInput();
@@ -101,7 +104,7 @@ public class Player {
             coords[1] = hitInput.x;
         //} while (!done);
 
-        return hit;
+        return resultOfHit;
     }
 
     public AbstractShip[] getShips() {

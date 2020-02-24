@@ -3,12 +3,12 @@ package app.main.ships;
 import java.util.NoSuchElementException;
 
 public enum Hit {
-    MISS(-1, "manqué"),
-    STRIKE(-2, "touché"),
-    DESTROYER(2, "Frégate"),
-    SUBMARINE(3, "Sous-marin"),
-    BATTLESHIP(4, "Croiseur"),
-    CARRIER(5, "Porte-avion");
+    MISS(-1, "missed"),
+    STRIKE(-2, "Striked"),
+    DESTROYER(2, "Destroyer"),
+    SUBMARINE(3, "Submarine"),
+    BATTLESHIP(4, "Battleship"),
+    CARRIER(5, "Carrier");
 
     /* ***
      * Attributs
@@ -38,5 +38,21 @@ public enum Hit {
 
     public String toString() {
         return this.label;
+    }
+
+    public void print(){
+        switch(this){
+            case MISS :
+                System.out.println("missed ...");
+                break;
+            case STRIKE :
+                System.out.println("Hit !");
+                break;
+
+            default :
+                System.out.println(this.label + " is Sunk !");
+                break;
+
+        }
     }
 };
