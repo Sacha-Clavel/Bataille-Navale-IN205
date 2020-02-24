@@ -1,6 +1,8 @@
-package app.main.board;
+package app.main.player;
 
 import app.main.ships.*;
+import app.main.board.*;
+
 import java.util.List;
 import java.util.ArrayList;
 

@@ -1,9 +1,11 @@
-package app.main.board;
+package app.main.player;
 
 import java.io.Serializable;
 import java.util.*;
 
 import app.main.ships.*;
+import app.main.board.*;
+
 
 public class BattleShipsAI implements Serializable {
 

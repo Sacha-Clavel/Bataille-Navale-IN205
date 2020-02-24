@@ -99,8 +99,7 @@ public class Player {
             }
             // TODO : Game expects sendHit to return BOTH hit result & hit coords.
             // return hit is obvious. But how to return coords at the same time ?
-            coords = new int[2];
-            coords[0] = hitInput.y;
+            coords[0] = hitInput.y+1;
             coords[1] = hitInput.x;
         //} while (!done);
 
